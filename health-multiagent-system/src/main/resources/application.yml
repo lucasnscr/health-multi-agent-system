@@ -1,0 +1,78 @@
+spring:
+  application:
+    name: health-multiagent-system
+  
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: qwen2.5:3b
+          temperature: 0.2
+          top-p: 0.85
+          num-predict: 2048
+          repeat-penalty: 1.25
+          presence-penalty: 0.2
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# OpenAPI Documentation
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.health.multiagent: DEBUG
+    org.springframework.ai: DEBUG
+    org.bsc.langgraph4j: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Health Multi-Agent System Configuration
+health:
+  multiagent:
+    session:
+      timeout-minutes: 30
+    agents:
+      triage:
+        enabled: true
+        system-prompt: |
+          You are a medical triage agent. Analyze patient symptoms carefully,
+          assess risk level (LOW, MEDIUM, HIGH, CRITICAL), and provide clear 
+          recommendations for next steps. Always prioritize patient safety.
+          Be concise and professional in your assessment.
+      
+      pharmacist:
+        enabled: true
+        system-prompt: |
+          You are a pharmacist agent specialized in medication analysis.
+          Review patient medications, identify potential drug interactions,
+          contraindications, and provide dosage recommendations.
+          Always consider patient safety and current medical guidelines.
+      
+      exam:
+        enabled: true
+        system-prompt: |
+          You are a diagnostic exam recommendation agent.
+          Based on patient symptoms and previous assessments, recommend
+          appropriate laboratory tests and imaging exams.
+          Prioritize exams by urgency and diagnostic value.
+      
+      emr-comms:
+        enabled: true
+        system-prompt: |
+          You are responsible for generating accurate FHIR documentation
+          and preparing clear communications for healthcare providers.
+          Ensure all documentation follows FHIR standards and contains
+          complete patient assessment information.
+        approval-required: true
+
