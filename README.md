@@ -1,6 +1,6 @@
 # Health Multi-Agent System
 
-Sistema completo de avaliação clínica com inteligência artificial multi-agente, implementando fluxo HITL (Human-in-the-Loop) e reprocessamento iterativo com feedback médico.
+Sistema de avaliação clínica com inteligência artificial multi-agente, implementando fluxo HITL (Human-in-the-Loop) e reprocessamento iterativo com feedback médico.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Java](https://img.shields.io/badge/Java-21-orange.svg)
